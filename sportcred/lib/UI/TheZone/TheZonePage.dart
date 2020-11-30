@@ -3,7 +3,7 @@ import 'package:flutter/rendering.dart';
 import 'package:sportcred/UI/TheZone/AddPostWidget.dart';
 import 'package:sportcred/models/global.dart';
 import 'package:sportcred/UI/TheZone/PostWidget.dart';
-import 'package:sportcred/BottomNavigation.dart';
+import 'package:sportcred/models/Post.dart';
 
 class TheZonePage extends StatefulWidget {
   @override
@@ -87,7 +87,7 @@ class TheZonePageState extends State<TheZonePage> {
     );
   }
 
-  Widget _buildPostList(BuildContext context, List<PostWidget> postList) {
+  Widget _buildPostList(BuildContext context, List<Post> postList) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[

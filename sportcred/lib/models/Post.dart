@@ -3,9 +3,9 @@ import 'dart:convert';
 class Post{
   String title;
   String desc;
-  String upvotes; 
+  int upvotes; 
   String connection;
-  String id;
+  int id;
 
   Post(this.title, this.desc, this.upvotes, this.connection, this.id);
 
