@@ -72,11 +72,13 @@ class TheZonePageState extends State<TheZonePage> {
 
   _buildPostWidget(BuildContext context, Post post) {
     return PostWidget(
-      title: post.title,
-      desc: post.desc,
-      upvotes: post.upvotes,
-      connection: post.connection,
+      user: widget.username,
       id: post.id,
+      username: post.username,
+      title: post.title,
+      body: post.body,
+      upvotes: post.upvotes,
+      upvoters: post.upvoters,
     );
   }
 

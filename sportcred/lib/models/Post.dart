@@ -1,21 +1,16 @@
-import 'dart:convert';
-
-class Post{
+class Post {
+  String id;
+  String username;
   String title;
-  String desc;
-  int upvotes; 
-  String connection;
-  int id;
+  String body;
+  int upvotes;
+  List<String> upvoters;
 
-  Post(this.title, this.desc, this.upvotes, this.connection, this.id);
+  Post(this.id, this.username, this.title, this.body,
+      this.upvotes, this.upvoters);
 
   factory Post.fromJson(Map<String, dynamic> parsedJson) {
-    return Post(
-      parsedJson['title'],
-      parsedJson['desc'],
-      parsedJson['upvotes'],
-      parsedJson['connection'],
-      parsedJson['id']
-    );
+    return Post(parsedJson['id'], parsedJson['username'],
+        parsedJson['title'], parsedJson['body'], parsedJson['upvotes'], parsedJson['upvoters']);
   }
 }

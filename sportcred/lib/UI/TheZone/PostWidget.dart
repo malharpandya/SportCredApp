@@ -1,15 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:sportcred/Connection/Functionality/PostFunctionality.dart';
 import 'package:sportcred/UI/Post/PostPage.dart';
 import 'package:sportcred/models/global.dart';
 
 class PostWidget extends StatefulWidget {
+  final String user;
+  final String id;
+  final String username;
   final String title;
-  final String desc;
-  final String connection;
+  final String body;
   final int upvotes;
-  final int id;
+  final List<String> upvoters;
 
-  PostWidget({Key key, this.title, this.desc, this.upvotes, this.connection, this.id})
+  PostWidget(
+      {Key key,
+      this.user,
+      this.id,
+      this.username,
+      this.title,
+      this.body,
+      this.upvotes,
+      this.upvoters})
       : super(key: key);
 
   @override
@@ -19,16 +30,26 @@ class PostWidget extends StatefulWidget {
 class _PostWidgetState extends State<PostWidget> {
   bool _toggled = false;
 
+  PostFunctionality pf;
+
+  @override
+  void initState() {
+    pf = PostFunctionality(widget.username);
+    super.initState();
+  }
+
   void _onItemTapped() {
     setState(() {
       switch (_toggled) {
         case true:
           {
+            pf.upvote(widget.id, false);
             _toggled = false;
           }
           break;
         case false:
           {
+            pf.upvote(widget.id, true);
             _toggled = true;
           }
           break;
@@ -39,7 +60,7 @@ class _PostWidgetState extends State<PostWidget> {
   @override
   Widget build(BuildContext context) {
     String title = widget.title;
-    String desc = widget.desc;
+    String desc = widget.body;
     int upvotes = (_toggled == true) ? widget.upvotes + 1 : widget.upvotes;
 
     return InkWell(
@@ -48,7 +69,7 @@ class _PostWidgetState extends State<PostWidget> {
               context,
               MaterialPageRoute(
                   builder: (context) => PostPage(
-                        username: "Anonymous",
+                        username: widget.username,
                         title: title,
                         desc: desc,
                       )));
