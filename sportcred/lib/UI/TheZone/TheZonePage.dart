@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:sportcred/Connection/Functionality/PostFunctionality.dart';
 import 'package:sportcred/UI/TheZone/AddPostWidget.dart';
 import 'package:sportcred/models/global.dart';
 import 'package:sportcred/UI/TheZone/PostWidget.dart';
 import 'package:sportcred/models/Post.dart';
 
 class TheZonePage extends StatefulWidget {
+  final String apiKey;
+  TheZonePage({this.apiKey});
   @override
   TheZonePageState createState() => TheZonePageState();
 }
@@ -41,6 +44,18 @@ class TheZonePageState extends State<TheZonePage> {
   }
 
   List<Post> postList = [];
+  PostFunctionality pf;
+
+  @override
+  void initState() {
+    pf = PostFunctionality(widget.apiKey);
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -60,7 +75,8 @@ class TheZonePageState extends State<TheZonePage> {
       body: Container(
           padding: EdgeInsets.only(top: 20.0, left: 20.0, right: 20.0),
           child: StreamBuilder(
-            stream: null, //TODO
+            stream: pf.getPosts,
+            initialData: [],
             builder: (context, snapshot) {
               if (snapshot.hasData && snapshot != null) {
                 if (snapshot.data.length > 0) {
@@ -108,7 +124,9 @@ class TheZonePageState extends State<TheZonePage> {
         Expanded(
             child: ListView(
           shrinkWrap: true,
-          children: postList.map((Post item) => _buildPostWidget(context, item)).toList(),
+          children: postList
+              .map((Post item) => _buildPostWidget(context, item))
+              .toList(),
         )),
       ],
     );
