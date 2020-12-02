@@ -7,40 +7,17 @@ import 'package:sportcred/UI/TheZone/PostWidget.dart';
 import 'package:sportcred/models/Post.dart';
 
 class TheZonePage extends StatefulWidget {
-  final String apiKey;
-  TheZonePage({this.apiKey});
+  final String username;
+  TheZonePage({this.username});
   @override
   TheZonePageState createState() => TheZonePageState();
 }
 
-final List<String> titles = <String>[
-  'A very long statement that actually is super long. Consider applying a flex factor to force the children',
-  'So this text isn\'t as long as it should be',
-  'E-sports is taking over viewership of many other sports',
-  'Pascal Siakam Bad',
-  'Jimmy Butler beat Kevin Hart in a 3-point shoot out with only his left hand!!!!',
-  'This post actually exists just to check the scrolling capability and to see if I can put a button over a post'
-];
-final List<String> descs = <String>[
-  'Lots of text also belongs here because I think I should put a good number of characters to test how my app deals with it otherwise I\'m sad',
-  'But we have enough text here that it can make the post look normal I hope that everything else does too',
-  'Esports viewership has gone to crazy high levels. Offseason basketball was not playing on the sports channel but an Overwatch pro game was thats honestly crazy!',
-  'Now give me your upvotes Toronto Raptors fans',
-  'I mean to be fair Kevin Hart is like 4 feet shorter than Jimmy Butler so I guess I gotta give that to him',
-  'I don\'t know if having a button over posts in the bottom right is better or if having a button somewhere else on the screen is who knows?. Let me know your thoughts down below'
-];
-final List<int> upvotes = <int>[20, 402, 203, 1400, 320, 12];
-
 class TheZonePageState extends State<TheZonePage> {
-  static void addItem(String title, String desc) {
-    titles.insert(0, title);
-    descs.insert(0, desc);
-    upvotes.insert(0, 0);
-  }
 
   void _onItemTapped() {
     Navigator.push(
-        context, MaterialPageRoute(builder: (context) => AddPostWidget()));
+        context, MaterialPageRoute(builder: (context) => AddPostWidget(username: widget.username)));
   }
 
   List<Post> postList = [];
@@ -48,7 +25,7 @@ class TheZonePageState extends State<TheZonePage> {
 
   @override
   void initState() {
-    pf = PostFunctionality(widget.apiKey);
+    pf = PostFunctionality(widget.username);
     super.initState();
   }
 
