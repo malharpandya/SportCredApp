@@ -61,4 +61,6 @@ class ApiProvider {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setString('API_Token', api_key);
  }
+
+  void upvote(String id, bool upvoted) {}
 }

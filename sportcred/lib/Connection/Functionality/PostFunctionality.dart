@@ -23,4 +23,12 @@ class PostFunctionality {
     _posts = await _repository.getPosts(apiKey);
   }
 
+  Future<Null> upvote(String id, bool upvoted) async {
+    _posts = await _repository.upvote(id, upvoted);
+  }
+
+  Future<Null> addPosts(String apiKey, String title, String desc) async {
+    _posts = await _repository.addPost(apiKey, title, desc);
+  }
+
 }
