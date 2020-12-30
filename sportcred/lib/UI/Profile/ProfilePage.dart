@@ -139,7 +139,7 @@ class _ProfilePageState extends State<ProfilePage>{
                       onTap: _onItemTappedPicks,
                       child: new Container(
                         height: 60,
-                        width: 180,
+                        width: 160,
                         decoration: new BoxDecoration(
                           color: Colors.grey[200],
                           borderRadius: new BorderRadius.all(Radius.circular(20.0))
@@ -165,7 +165,7 @@ class _ProfilePageState extends State<ProfilePage>{
                       onTap: _onItemTappedACS,
                       child: new Container(
                         height: 60,
-                        width: 180,
+                        width: 160,
                         decoration: new BoxDecoration(
                           color: Colors.grey[200],
                           borderRadius: new BorderRadius.all(Radius.circular(20.0))

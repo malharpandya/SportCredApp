@@ -47,16 +47,6 @@ class CommentWidget extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Padding(
-                padding: const EdgeInsets.fromLTRB(10, 0, 100, 0),
-                child: TextButton(
-                  onPressed: null, 
-                  child: Text(
-                    "Load replies...",
-                  style: TextStyle(color: Colors.blue, fontSize: 13),
-                  ),
-                ),
-              ),
               IconButton(
               icon: Icon(
                 Icons.arrow_upward_rounded,
