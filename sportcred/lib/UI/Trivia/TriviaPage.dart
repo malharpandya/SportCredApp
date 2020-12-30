@@ -15,7 +15,7 @@ class TriviaConnection extends StatelessWidget {
         builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
           List triviaData = json.decode(snapshot.data.toString());
           if (triviaData != null) {
-            return TriviaTester(triviaData: triviaData, gameType: gameType);
+            return TriviaPage(triviaData: triviaData, gameType: gameType);
           } else {
             return Container(
               child: Text('Update trivia connection'),
@@ -26,15 +26,15 @@ class TriviaConnection extends StatelessWidget {
   }
 }
 
-class TriviaTester extends StatefulWidget {
+class TriviaPage extends StatefulWidget {
   final triviaData;
   final String gameType;
-  TriviaTester({Key key, this.triviaData, this.gameType}) : super(key: key);
+  TriviaPage({Key key, this.triviaData, this.gameType}) : super(key: key);
   @override
-  _TriviaTesterState createState() => _TriviaTesterState(triviaData, gameType);
+  _TriviaPageState createState() => _TriviaPageState(triviaData, gameType);
 }
 
-class _TriviaTesterState extends State<TriviaTester> with SingleTickerProviderStateMixin {
+class _TriviaPageState extends State<TriviaPage> with SingleTickerProviderStateMixin {
   var triviaData;
   String gameType;
   var questionList = List<int>.generate(13, (index) => index + 1);
@@ -49,13 +49,16 @@ class _TriviaTesterState extends State<TriviaTester> with SingleTickerProviderSt
   var newButtonColour;
   int score = 0;
   final myController = TextEditingController();
-  _TriviaTesterState(this.triviaData, this.gameType);
+  _TriviaPageState(this.triviaData, this.gameType);
 
   @override
   void initState() {
     questionList.shuffle();
     _timerController = TimerController(this);
-    _timerController.duration = Duration(seconds: 14);
+    _timerController.duration = Duration(seconds: 10);
+    if (gameType == 'solo') {
+      _timerController.duration = Duration(seconds: 14);
+    }
     _timerController.start();
     super.initState();
   }
@@ -284,6 +287,14 @@ class _TriviaTesterState extends State<TriviaTester> with SingleTickerProviderSt
       return view;
     }
 
+    Duration timerDuration() {
+      Duration duration = Duration(seconds: 10);
+      if (gameType == 'solo') {
+        duration = Duration(seconds: 14);
+      }
+      return duration;
+    }
+
     return Scaffold(
         backgroundColor: AppTheme.backgroundGray,
         resizeToAvoidBottomPadding: false,
@@ -332,9 +343,10 @@ class _TriviaTesterState extends State<TriviaTester> with SingleTickerProviderSt
                               padding: EdgeInsets.only(bottom: 20),
                               child: SimpleTimer(
                                 controller: _timerController,
-                                duration: Duration(seconds: 14),
+                                duration: timerDuration(),
                                 progressTextStyle: TextStyle(
-                                    color: Colors.white
+                                  color: Colors.white,
+                                  fontFamily: 'Lato',
                                 ),
                                 onEnd: checkQuestionNumber,
                               )
